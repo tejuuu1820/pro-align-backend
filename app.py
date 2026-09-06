@@ -1,11 +1,24 @@
 import os
 import sys
+import types
 
-# Ensure parent directory is in sys.path so backend module imports resolve correctly regardless of working directory
+# Ensure current and parent directories are in sys.path
 current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
 parent_dir = os.path.dirname(current_dir)
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
+
+# Ensure 'backend' module is always resolvable regardless of repo root layout on Render
+if 'backend' not in sys.modules:
+    try:
+        import backend
+    except ModuleNotFoundError:
+        m = types.ModuleType('backend')
+        m.__path__ = [current_dir]
+        sys.modules['backend'] = m
 
 from flask import Flask, jsonify
 from flask_cors import CORS
