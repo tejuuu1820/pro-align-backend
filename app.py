@@ -71,13 +71,11 @@ def create_app(config_class=Config):
     # Database Initialization
     db.init_app(app)
     
-    # Register blueprints
-    app.register_blueprint(auth_bp, url_prefix='/api')
-    app.register_blueprint(parser_bp, url_prefix='/api')
-    app.register_blueprint(analysis_bp, url_prefix='/api')
-    app.register_blueprint(resume_bp, url_prefix='/api')
-    app.register_blueprint(interview_bp, url_prefix='/api')
-    app.register_blueprint(report_bp, url_prefix='/api')
+    # Register blueprints (supports both /api/path and /path)
+    blueprints = [auth_bp, parser_bp, analysis_bp, resume_bp, interview_bp, report_bp]
+    for bp in blueprints:
+        app.register_blueprint(bp, url_prefix='/api', name=f"{bp.name}_api")
+        app.register_blueprint(bp, url_prefix='')
     
     # Add root and health check endpoints
     @app.route('/', methods=['GET'])
@@ -89,13 +87,30 @@ def create_app(config_class=Config):
     def health():
         return jsonify({"status": "healthy", "database": "connected" if db.engine else "Not connected"}), 200
         
-    # Create tables under application context
+    # Create tables and seed demo accounts under application context
     with app.app_context():
         try:
             db.create_all()
             logger.info("Database tables initialized successfully.")
+            
+            # Seed demo accounts if they do not exist
+            from backend.models.user import User
+            demo_users = [
+                {"username": "demouser", "email": "demo@proalign.com", "password": "Password123!"},
+                {"username": "candidate", "email": "candidate@proalign.com", "password": "Password123!"},
+                {"username": "recruiter", "email": "recruiter@proalign.com", "password": "Password123!"}
+            ]
+            for u in demo_users:
+                existing = User.query.filter((User.email == u["email"]) | (User.username == u["username"])).first()
+                if not existing:
+                    user = User(username=u["username"], email=u["email"])
+                    user.set_password(u["password"])
+                    db.session.add(user)
+            db.session.commit()
+            logger.info("Demo users verified/seeded successfully.")
         except Exception as e:
-            logger.error(f"Error creating database tables: {e}")
+            db.session.rollback()
+            logger.error(f"Error creating database tables or seeding demo users: {e}")
             
     return app
 
