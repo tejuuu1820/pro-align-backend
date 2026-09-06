@@ -1,0 +1,80 @@
+{
+  "Docker": {
+    "difficulty": "Medium",
+    "time": "1 week",
+    "youtube": "https://www.youtube.com/watch?v=fqMOX6JJhGo",
+    "docs": "https://docs.docker.com/"
+  },
+  "Aws": {
+    "difficulty": "Hard",
+    "time": "3 weeks",
+    "youtube": "https://www.youtube.com/watch?v=35gRy0N-Ew4",
+    "docs": "https://aws.amazon.com/developer/language/python/"
+  },
+  "Kubernetes": {
+    "difficulty": "Hard",
+    "time": "2 weeks",
+    "youtube": "https://www.youtube.com/watch?v=VnvRFRk_51k",
+    "docs": "https://kubernetes.io/docs/home/"
+  },
+  "Ci/Cd": {
+    "difficulty": "Medium",
+    "time": "5 days",
+    "youtube": "https://www.youtube.com/watch?v=scEDHsr3APg",
+    "docs": "https://resources.github.com/devops/ci-cd/"
+  },
+  "Docker/Kubernetes": {
+    "difficulty": "Hard",
+    "time": "2 weeks",
+    "youtube": "https://www.youtube.com/watch?v=bhBsN1j7A2A",
+    "docs": "https://kubernetes.io/docs/home/"
+  },
+  "Agile Pm": {
+    "difficulty": "Easy",
+    "time": "3 days",
+    "youtube": "https://www.youtube.com/watch?v=532I_3_d8yQ",
+    "docs": "https://www.atlassian.com/agile"
+  },
+  "C++": {
+    "difficulty": "Hard",
+    "time": "4 weeks",
+    "youtube": "https://www.youtube.com/watch?v=vLnPwxZdW4Y",
+    "docs": "https://en.cppreference.com/"
+  },
+  "Ui/UX": {
+    "difficulty": "Medium",
+    "time": "1 week",
+    "youtube": "https://www.youtube.com/watch?v=c9Wg6Ob_YnY",
+    "docs": "https://www.nngroup.com/articles/"
+  },
+  "Fastapi": {
+    "difficulty": "Medium",
+    "time": "4 days",
+    "youtube": "https://www.youtube.com/watch?v=tLKKm18Esso",
+    "docs": "https://fastapi.tiangolo.com/"
+  },
+  "Postgresql": {
+    "difficulty": "Medium",
+    "time": "5 days",
+    "youtube": "https://www.youtube.com/watch?v=qw--VYLgGeg",
+    "docs": "https://www.postgresql.org/docs/"
+  },
+  "Flask": {
+    "difficulty": "Medium",
+    "time": "4 days",
+    "youtube": "https://www.youtube.com/watch?v=qbLc5a9jdXo",
+    "docs": "https://flask.palletsprojects.com/"
+  },
+  "Python": {
+    "difficulty": "Easy",
+    "time": "2 weeks",
+    "youtube": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+    "docs": "https://docs.python.org/3/"
+  },
+  "Git": {
+    "difficulty": "Easy",
+    "time": "2 days",
+    "youtube": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+    "docs": "https://git-scm.com/doc"
+  }
+}
