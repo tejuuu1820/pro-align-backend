@@ -1,4 +1,12 @@
 import os
+import sys
+
+# Ensure parent directory is in sys.path so backend module imports resolve correctly regardless of working directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -58,10 +66,15 @@ def create_app(config_class=Config):
     app.register_blueprint(interview_bp, url_prefix='/api')
     app.register_blueprint(report_bp, url_prefix='/api')
     
-    # Add root health check endpoint
+    # Add root and health check endpoints
+    @app.route('/', methods=['GET'])
+    def root():
+        return jsonify({"message": "PRO-ALIGN API Server is running", "status": "online"}), 200
+
     @app.route('/health', methods=['GET'])
+    @app.route('/api/health', methods=['GET'])
     def health():
-        return jsonify({"status": "healthy", "database": str(db.engine.url if db.engine else "Not connected")}), 200
+        return jsonify({"status": "healthy", "database": "connected" if db.engine else "Not connected"}), 200
         
     # Create tables under application context
     with app.app_context():
